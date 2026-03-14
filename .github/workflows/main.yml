@@ -1,10 +1,10 @@
-name: Python Build
+name: DevOps Python Build
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,15 +15,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run Python Script
+      - name: Run Python Build
         run: |
+          echo "Starting Python Build..."
           python main.py
+          echo "Build Completed Successfully!"
